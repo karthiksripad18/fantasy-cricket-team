@@ -13,18 +13,29 @@ const TeamProvider = ({ children }) => {
   const ifPlayerExists = (id) => {
     return team.find((player) => player.pid === id) ? true : false;
   };
+  const ifTeamLimitExceeded = () => {
+    return team.length >= 11;
+  }
   const addPlayer = (playerInfo) => {
-    if (!ifPlayerExists(playerInfo.pid)) {
-      dispatch({ type: "ADD_PLAYER", payload: playerInfo });
+    if (ifTeamLimitExceeded()) {
+      return {open: true, message: 'Your team is already full.'}
+    }
+    else if (ifPlayerExists(playerInfo.stats.pid)) {
+      return {open: true, message: `${playerInfo.stats.name} already exists.`}
     } else {
-      console.log("Exists Guru");
+      dispatch({ type: "ADD_PLAYER", payload: playerInfo.stats });
+      return {open: true, message: `${playerInfo.stats.name} added to your team.`}
     }
   };
+  const removePlayer = (pid) => {
+    dispatch({ type: "REMOVE_PLAYER", payload: pid });
+  }
   return (
     <TeamContext.Provider
       value={{
-        team: team,
-        addPlayer: addPlayer
+        team,
+        addPlayer,
+        removePlayer
       }}
     >
       {children}

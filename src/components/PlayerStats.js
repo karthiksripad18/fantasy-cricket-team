@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./PlayerStats.css";
 import StatsTable from "./StatsTable";
+import CommonSnackBar from './CommonSnackbar';
 import { TeamContext } from "../context/TeamContext";
 
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { Paper, Avatar, Grid, Tooltip } from "@material-ui/core/";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -54,6 +55,17 @@ const PlayerStats = () => {
   const classes = useStyles();
   const { pid } = useParams();
   const [stats, setStats] = useState({});
+  const [snackState, setSnackState] = useState({open: false, message: ""});
+
+  const handleAddPlayer = () => {
+    const resObj = addPlayer({ stats });
+    setSnackState(resObj);
+  }
+
+  const handleSnackState = (i) => {
+    setSnackState(i);
+  }
+
   useEffect(() => {
     axios.get(`${url}${pid}`).then((res) => {
       setStats(res.data);
@@ -104,10 +116,11 @@ const PlayerStats = () => {
             color="primary"
             fontSize="large"
             className="float"
-            onClick={() => addPlayer({ stats })}
+            onClick={() => handleAddPlayer()}
           ></AddCircleIcon>
         </Tooltip>
       </a>
+      { snackState && <CommonSnackBar isOpen={snackState.open} message={snackState.message} handleSnackState={handleSnackState} />}
     </>
   );
 };

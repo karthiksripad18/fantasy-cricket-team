@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 
 import { TeamContext } from "../context/TeamContext";
 
-import { Grid, Paper, Avatar } from "@material-ui/core/";
+import { Grid, Paper, Chip, Button, Avatar } from "@material-ui/core/";
 import { makeStyles } from "@material-ui/core/styles";
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles({
   container: {
@@ -25,14 +26,31 @@ const useStyles = makeStyles({
 
 const FantasyTeam = () => {
   const classes = useStyles();
-  const { team } = useContext(TeamContext);
+  const { team, removePlayer } = useContext(TeamContext);
+  const handleDelete = (pid) => {
+    removePlayer(pid);
+  }
+  let content;
+  if (team.length) {
+    content = team.map((player) => {
+      return <Chip avatar={<Avatar alt={player.name} src={player.imageURL} />} label={player.name} onDelete={() => handleDelete(player.pid)}></Chip>;
+    })
+  } else {
+    content = <Link style={{textDecoration: "none"}} to="/search-players">
+    <Button
+    variant="contained"
+    color="primary"
+    className={classes.button}
+  >
+    Search Players
+  </Button></Link>;
+  }
+
   return (
     <div className={classes.container}>
       <Grid item xs={9}>
         <Paper className={classes.paper}>
-          {team.map((player) => {
-            return <Avatar alt={player.name} src={player.imageURL}></Avatar>;
-          })}
+          {content}
         </Paper>
       </Grid>
     </div>

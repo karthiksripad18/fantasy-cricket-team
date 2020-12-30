@@ -1,0 +1,6 @@
+.player-grid__paper {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

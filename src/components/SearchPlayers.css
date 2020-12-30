@@ -1,0 +1,15 @@
+.search-player {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.search-players__form {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.search-players__list {
+  margin: 10px;
+}

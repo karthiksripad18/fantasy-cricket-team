@@ -1,4 +1,4 @@
-Url used for fetching data - https://cricapi.com/api
+Endpoint used for fetching data - https://cricapi.com/api
 
 Major Packages used:
 1. Material UI

@@ -7,9 +7,11 @@ import SearchPlayers from "./components/SearchPlayers";
 import PlayerStats from "./components/PlayerStats";
 import FantasyTeam from "./components/FantasyTeam";
 import MatchCalender from "./components/MatchCalender";
+import Home from "./components/Home";
 
 import TeamProvider from "./context/TeamContext";
 import SideNav from "./components/SideNav";
+import PageNotFound from "./components/PageNotFound";
 
 export default function App() {
   return (
@@ -18,7 +20,7 @@ export default function App() {
         <SideNav />
         <Switch>
           <Route exact path="/">
-            estT
+            <Home />
           </Route>
           <Route path="/search-players">
             <SearchPlayers />
@@ -32,6 +34,7 @@ export default function App() {
           <Route path="/match-calender">
             <MatchCalender />
           </Route>
+          <Route path="*" exact={true}><PageNotFound /></Route>
         </Switch>
       </div>
     </TeamProvider>

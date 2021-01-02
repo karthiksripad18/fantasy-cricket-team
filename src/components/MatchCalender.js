@@ -4,6 +4,8 @@ import axios from 'axios';
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core/";
 
+import LoadingBar from './LoadingBar';
+
 const url = "https://cricapi.com/api/matchCalendar?apikey=JfONLh7QY4f8o38gZ0e2WecMXX22";
 
 const useStyles = makeStyles({
@@ -33,12 +35,24 @@ const useStyles = makeStyles({
 
 const MatchCalender = () => {
     const classes = useStyles();
-    const [matches, setMatches] = useState([])
+    const [matches, setMatches] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
-        axios.get(url).then(res => setMatches(res.data.data.slice(0, 20)))
+        setIsLoading(true);
+        axios.get(url).then(res => {
+            setIsLoading(false);
+            setMatches(res.data.data.slice(0, 20));
+        })
+        .catch(
+            err => {
+                setIsLoading(false);
+            }
+        )
     }, [])
     return (
-        <div className={classes.container}>
+        <>
+        {isLoading && <LoadingBar />}
+        {!isLoading && <div className={classes.container}>
             {matches.map(match => {
                 return <Grid item xs={2}>
                     <Paper className={classes.paper}>
@@ -48,6 +62,8 @@ const MatchCalender = () => {
                 </Grid>
             })}
         </div>
+        }
+        </>
     )
 }
 

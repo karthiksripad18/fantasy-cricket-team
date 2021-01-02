@@ -1,26 +1,26 @@
 import React, { useContext } from "react";
 
 import { TeamContext } from "../context/TeamContext";
+import {cricketGroundImage} from "../common/constants";
 
-import { Grid, Paper, Chip, Button, Avatar } from "@material-ui/core/";
+import { Chip, Avatar, Tooltip } from "@material-ui/core/";
+import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import { makeStyles } from "@material-ui/core/styles";
 import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles({
   container: {
-    display: "flex",
-    justifyContent: "center"
-  },
-  paper: {
-    height: "80vh",
-    width: "100%",
-    marginTop: 25,
     backgroundImage:
-      "url('https://upload.wikimedia.org/wikipedia/commons/d/d0/Cricket_field_blank.svg')",
+      `url(${cricketGroundImage})`,
     backgroundSize: "100% 100%",
+    width: "100%",
+    height: "100vh",
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center"
+  },
+  addIcon: {
+    fontSize: 80
   }
 });
 
@@ -37,22 +37,18 @@ const FantasyTeam = () => {
     })
   } else {
     content = <Link style={{textDecoration: "none"}} to="/search-players">
-    <Button
-    variant="contained"
-    color="primary"
-    className={classes.button}
-  >
-    Search Players
-  </Button></Link>;
+      <Tooltip title = "Add Players">
+        <ControlPointIcon 
+          className= {classes.addIcon}
+          color="secondary"
+        />
+      </Tooltip>
+      </Link>;
   }
 
   return (
     <div className={classes.container}>
-      <Grid item xs={9}>
-        <Paper className={classes.paper}>
-          {content}
-        </Paper>
-      </Grid>
+      {content}
     </div>
   );
 };

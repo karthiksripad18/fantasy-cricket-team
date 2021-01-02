@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
-import "./PlayerStats.css";
-import StatsTable from "./StatsTable";
+
 import CommonSnackBar from './CommonSnackbar';
 import { TeamContext } from "../context/TeamContext";
+import {cricApiKey, cricApiUrl} from '../common/constants';
 
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Paper, Avatar, Grid, Tooltip } from "@material-ui/core/";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -48,10 +48,10 @@ const useStyles = makeStyles({
 });
 
 const url =
-  "https://cricapi.com/api/playerStats?apikey=JfONLh7QY4f8o38gZ0e2WecMXX22&pid=";
+  `${cricApiUrl}playerStats?apikey=${cricApiKey}&pid=`;
 
 const PlayerStats = () => {
-  const { team, addPlayer } = useContext(TeamContext);
+  const { addPlayer } = useContext(TeamContext);
   const classes = useStyles();
   const { pid } = useParams();
   const [stats, setStats] = useState({});
@@ -70,7 +70,7 @@ const PlayerStats = () => {
     axios.get(`${url}${pid}`).then((res) => {
       setStats(res.data);
     });
-  }, []);
+  }, [pid]);
 
   return (
     <>
@@ -115,7 +115,7 @@ const PlayerStats = () => {
           <AddCircleIcon
             color="primary"
             fontSize="large"
-            className="float"
+            className={classes.float}
             onClick={() => handleAddPlayer()}
           ></AddCircleIcon>
         </Tooltip>

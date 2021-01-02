@@ -9,16 +9,9 @@ import LoadingBar from './LoadingBar';
 const url = "https://cricapi.com/api/matchCalendar?apikey=JfONLh7QY4f8o38gZ0e2WecMXX22";
 
 const useStyles = makeStyles({
-    container: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center"
-    },
     paper: {
       height: 75,
-      marginTop: 10,
-      width: "75vh",
+      margin: 10,
       textAlign: "center",
       display: "flex",
       flexDirection: "column",
@@ -52,16 +45,16 @@ const MatchCalender = () => {
     return (
         <>
         {isLoading && <LoadingBar />}
-        {!isLoading && <div className={classes.container}>
+        {!isLoading && <Grid container>
             {matches.map(match => {
-                return <Grid item xs={2}>
+                return <Grid item xs={4}>
                     <Paper className={classes.paper}>
                         <p className={classes.team}>{match.name}</p>
                         <p className={classes.date}>{match.date}</p>
                     </Paper>
                 </Grid>
             })}
-        </div>
+        </Grid>
         }
         </>
     )

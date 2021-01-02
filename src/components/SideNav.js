@@ -10,7 +10,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import {Drawer, List, ListItem, ListItemText} from '@material-ui/core/';
 import {makeStyles} from '@material-ui/core/styles';
 
-const navBars = [{text: "Home", link: "/", icon: <HomeIcon />}, {text: "My Team", link: "/fantasy-team", icon: <PeopleIcon />}, {text: "Search Player", link: "/search-players", icon: <SearchIcon />}, {text: "Match Calender", link: "/match-calender", icon: <EventAvailableIcon />}];
+const navBars = [{text: "Home", link: "/", icon: <HomeIcon />}, {text: "Match Calender", link: "/match-calender", icon: <EventAvailableIcon />}, {text: "Search Player", link: "/search-players", icon: <SearchIcon />}, {text: "My Team", link: "/fantasy-team", icon: <PeopleIcon />}];
 
 const useStyles = makeStyles({
     hamburger: {

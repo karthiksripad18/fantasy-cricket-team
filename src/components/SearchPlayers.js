@@ -1,19 +1,34 @@
 import React, { useState } from "react";
 
 import axios from "axios";
-
-import "./SearchPlayers.css";
-
 import { TextField, Button, Grid } from "@material-ui/core/";
+import {makeStyles} from '@material-ui/core/styles';
 
 import PlayerGrid from "./PlayerGrid";
+import {cricApiKey, cricApiUrl} from '../common/constants';
 
 const url =
-  "https://cricapi.com/api/playerFinder?apikey=JfONLh7QY4f8o38gZ0e2WecMXX22&name=";
-const config = {
-  headers: { "Access-Control-Allow-Origin": "*" }
-};
+  `${cricApiUrl}playerFinder?apikey=${cricApiKey}&name=`;
+
+
+const useStyles = makeStyles({
+  searchPlayer: {
+    display: "flex",
+    flexDirection: "column",
+    padding: 10
+  },
+  searchPlayerForm: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%"
+  },
+  searchPlayerList: {
+    margin: 10
+  }
+});
+
 const SearchPlayers = () => {
+  const classes = useStyles();
   const [input, setInput] = useState("");
   const [players, setPlayers] = useState([]);
 
@@ -24,8 +39,8 @@ const SearchPlayers = () => {
     });
   };
   return (
-    <div className="search-player">
-      <div className="search-players__form">
+    <div className={classes.searchPlayer}>
+      <div className={classes.searchPlayerForm}>
         <form>
           <TextField
             id="player-name"
@@ -46,7 +61,7 @@ const SearchPlayers = () => {
         </form>
       </div>
       {players && (
-        <div className="search-players__list">
+        <div className={classes.searchPlayerList}>
           <Grid container spacing={3}>
             {players.map((player) => {
               return <PlayerGrid key={player.pid} {...player} />;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import {Snackbar} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';

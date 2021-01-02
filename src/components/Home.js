@@ -6,8 +6,9 @@ import { makeStyles } from '@material-ui/styles';
 
 import Article from './Article';
 import LoadingBar from './LoadingBar';
+import {newsApiUrl, newsApiKey} from '../common/constants';
 
-const url = "http://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=64775383945c449d901c2a28bc8a800b";
+const url = `${newsApiUrl}?country=in&category=sports&apiKey=${newsApiKey}`;
 
 const useStyles = makeStyles({
     gridContainer: {
